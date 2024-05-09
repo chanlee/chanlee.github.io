@@ -9,4 +9,4 @@ permalink: /about/
 
 ### Bio
 
-![chanlee](/assets/images/chanlee.png){: .profile_img}
+![자화상](/assets/images/chanlee.png){: .profile_img}

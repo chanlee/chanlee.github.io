@@ -18,14 +18,17 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
+author: 이원찬
 title: chanlee blog
 email: wonchan.lee@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
-    커밍 쑨~
+    알아두면 (언젠가는)쓸모있을 소소한 테크 지식과 경험들, 일상을 공유합니다. 그리고, 발번역 주의. ^^*
 baseurl: '' # the subpath of your site, e.g. /blog
 url: 'https://chanlee.github.io' # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: chanlee
 github_username: chanlee
+instagram_username: wonchanlee
+disqus.shortname: chanlee2015
 
 # Build settings
 theme: minima
