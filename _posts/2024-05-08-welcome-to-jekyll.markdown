@@ -3,6 +3,7 @@ layout: post
 title: 'Fastify로 NodeJS 백엔드 갈아타기 - (1)시작'
 date: 2024-11-11 19:01:00 +0900
 categories: javascript nodejs fastify typescript
+published: false
 ---
 
 ## 안녕! Fastify 잘가! Express
@@ -15,7 +16,6 @@ Express보다 현대적인 구조와 훨씬 더 빠른 Benchmark 성능을 제�
 ## 시작
 
 일단 시작은 "Hello World"가 국룰 아니겠는가? 공식 사이트의 [Getting Started](https://fastify.dev/docs/latest/Guides/Getting-Started/) 에서 처음으로 소개하는 예제를 Typescript 환경으로 변형해서 시작 프로젝트를 생성해 보겠다.
-전체 프로젝트에 대한 코드는 github repository를 참조하기 바란다.
 
 ```typescript
 // src/routes/helloworld.ts
@@ -123,6 +123,7 @@ start();
 ```
 
 핵심은 plugins 와 register API 이다. 이 API는 당신의 어플리케이션에서 비동기 부트스트래핑을 매우 간략하게 처리해주는 Fastify 프레임워크의 핵심이다.
+
 일반적으로 데이터베이스 연결과 같은 기능은 서버가 연결을 수락하기전에 준비가 되어야 한다. 기존에는 이런것들을 콜백함수나 프로미스같은 복잡한 로직으로 처리해야만 했다.
 Fastify는 이러한 과정을 깔끔하고 최소한의 절차로 처리할 수 있게 해준다.
 
@@ -257,16 +258,7 @@ start();
 ]
 ```
 
-{% highlight ruby %}
-def print_hi(name)
-puts "Hi, #{name}"
-end
-print_hi('Tom')
-#=> prints 'Hi, Tom' to STDOUT.
-{% endhighlight %}
+## 요약
 
-Check out the [Jekyll docs][jekyll-docs] for more info on how to get the most out of Jekyll. File all bugs/feature requests at [Jekyll’s GitHub repo][jekyll-gh]. If you have questions, you can ask them on [Jekyll Talk][jekyll-talk].
-
-[jekyll-docs]: https://jekyllrb.com/docs/home
-[jekyll-gh]: https://github.com/jekyll/jekyll
-[jekyll-talk]: https://talk.jekyllrb.com/
+지금까지 예제에서 단지 register API만 사용해서 routes도 등록하고, plugins도 등록했다.
+이 방법은 plugins를 선언한 순서대로 로드한다. 이것은 코드를 읽고 쓰기 쉽게 유지해준다.
