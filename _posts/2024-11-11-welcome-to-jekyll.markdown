@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 'Fastify로 NodeJS 백엔드 갈아타기 - (1)시작'
+title: 'Fastify로 NodeJS 백엔드 갈아타기 - (1) Plugins'
 date: 2024-11-11 19:01:00 +0900
 categories: javascript nodejs fastify typescript
 ---
