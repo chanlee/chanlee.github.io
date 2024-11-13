@@ -1,0 +1,18 @@
+---
+layout: post
+title: 'Fastify로 NodeJS 백엔드 갈아타기 - (2) Decorator'
+date: 2024-11-13 19:01:00 +0900
+categories: javascript nodejs fastify typescript
+---
+
+## 캡슐화 (Encapsulation)
+
+이전글에서 Fastify의 라우트, 유틸리티등 모든것은 Plungins라고 말했다. 이것을 위해 register 라는 단일 API가 제공된다.
+
+```javascript
+fastify.register(require('./my-plugin'), { options });
+```
+
+이런식으로 각각의 기능들은 관심사를 분리(Separation of Concern)하면 확장성이 뛰어나고 코드 관리가 쉬워진다.
+
+## 데코레이터 (Decorators)
