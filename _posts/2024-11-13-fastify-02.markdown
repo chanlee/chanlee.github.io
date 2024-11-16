@@ -3,16 +3,51 @@ layout: post
 title: 'Fastify로 NodeJS 백엔드 갈아타기 - (2) Decorator'
 date: 2024-11-13 19:01:00 +0900
 categories: javascript nodejs fastify typescript
+published: false
 ---
 
 ## 캡슐화 (Encapsulation)
 
-이전글에서 Fastify의 라우트, 유틸리티등 모든것은 Plungins라고 말했다. 이것을 위해 register 라는 단일 API가 제공된다.
+이전글에서 Fastify의 라우트, 유틸리티등 모든것은 Plungins라고 말했다. 이것을 위해 register
+라는 단일 API가 제공된다.
 
 ```javascript
 fastify.register(require('./my-plugin'), { options });
 ```
 
-이런식으로 각각의 기능들은 관심사를 분리(Separation of Concern)하면 확장성이 뛰어나고 코드 관리가 쉬워진다.
+이런식으로 각각의 기능들은 관심사를 분리(Separation of Concern)하면 확장성이 뛰어나고 코드
+관리가 쉬워진다.
 
 ## 데코레이터 (Decorators)
+
+간단한 유틸리티를 작성해보자.
+
+```typescript
+// your-awesome-utility.ts
+export default function (a: string, b: string) {
+    return a + b;
+}
+
+import util from './your-awesome-utility';
+console.log(util('this is', 'awesome'));
+```
+
+Fastify 에서는 decorator를 사용해 이것보다 좀 더 우와한 방법을 제공한다.
+
+```typescript
+/**
+ * Encapsulates the routes
+ * @param {FastifyInstance} fastify  Encapsulated Fastify Instance
+ * @param {FastifyPluginOptions} options plugin options, refer to https://fastify.dev/docs/latest/Reference/Plugins/#plugin-options
+ */
+async function helloworld(
+    fastify: FastifyInstance,
+    options: FastifyPluginOptions,
+    done
+): Promise<void> {
+    fastify.decorate('util', (a: string, b: string) => a + b);
+    fastify.get('/', async (request: FastifyRequest, reply: FastifyReply) => {
+        return { hello: fastify.util('that is ', 'awesome') };
+    });
+}
+```
