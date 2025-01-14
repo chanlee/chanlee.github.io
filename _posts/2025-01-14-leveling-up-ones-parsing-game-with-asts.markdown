@@ -27,7 +27,7 @@ categories: ast basecs compilers theory
 
 ![Abstract syntax tree: a definition](https://miro.medium.com/v2/resize:fit:1400/format:webp/1*mhIbxxlr1hyvUemAMMeNCw.jpeg)
 
-우리는 종종 구문 트리(그리고 그 구성 방식)를 구문 분석 트리와 비교하여 생각하는데, 이는 이미 [꽤 익숙한 개념](https://medium.com/basecs/grammatically-rooting-oneself-with-parse-trees-ec9daeda7dad){:target="\_blank"}입니다. *구문 분석 트리*는 코드의 문법 구조를 포함하는 트리 데이터 구조, 즉 코드 '문장'에 나타나는 모든 구문 정보를 포함하고 프로그래밍 언어 자체의 문법에서 직접 파생된다는 것을 알고 있습니다.
+우리는 종종 구문 트리(그리고 그 구성 방식)를 구문 분석 트리와 비교하여 생각하는데, 이는 이미 [꽤 익숙한 개념](https://chanlee.github.io/ast/basecs/compilers/theory/2025/01/14/grammatically-rooting-oneself-with-parse-trees.html){:target="\_blank"}입니다. *구문 분석 트리*는 코드의 문법 구조를 포함하는 트리 데이터 구조, 즉 코드 '문장'에 나타나는 모든 구문 정보를 포함하고 프로그래밍 언어 자체의 문법에서 직접 파생된다는 것을 알고 있습니다.
 
 반면 *추상 구문 트리*는 구문 분석 트리가 포함할 수 있는 상당량의 구문 정보를 무시합니다.
 

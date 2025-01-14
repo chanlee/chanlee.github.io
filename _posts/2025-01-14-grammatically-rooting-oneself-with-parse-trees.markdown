@@ -184,13 +184,13 @@ categories: ast basecs compilers theory
 
 다행히도 컴파일러 설계는 거의 모든 컴퓨터 과학 커리큘럼에서 잘 가르치고 있으며, 파서와 구문 분석 트리 등 컴파일러의 여러 부분을 이해하는 데 도움이 되는 자료가 꽤 많이 있습니다. 하지만 대부분의 CS 콘텐츠가 그렇듯이, 특히 개념이나 사용되는 전문 용어에 익숙하지 않은 경우 이해하기 어려운 부분이 많을 수 있습니다. 아래는 더 많은 것을 배우고 싶을 때 구문 분석 트리를 잘 설명해 주는 초보자 친화적인 몇 가지 리소스입니다.
 
-1. [Parse Tree](http://interactivepython.org/runestone/static/pythonds/Trees/ParseTree.html), Interactive Python
-2. [Grammars, Parsing, Tree Traversals](http://www.cs.cornell.edu/courses/cs2110/2014fa/L21-ParsingTrees/cs2110fa14Parsing.pdf), Professors David Gries & Doug James
-3. [Let’s Build A Simple Interpreter, Part 7](https://ruslanspivak.com/lsbasi-part7/), Ruslan Spivak
-4. [A Guide to Parsing: Algorithms and Terminology](https://tomassetti.me/guide-parsing-algorithms-terminology/#parser), Gabriele Tomassetti
-5. [Lecture 2: Abstract and Concrete Syntax](http://www.cse.chalmers.se/edu/year/2011/course/TIN321/lectures/proglang-02.html), Aarne Ranta
-6. [Compilers and Interpreters](http://flint.cs.yale.edu/cs421/lectureNotes/c04.pdf), Professor Zhong Shao
-7. [Compiler Basics](http://www.cs.man.ac.uk/~pjj/farrell/comp4.html) — The Parser, James Alan Farrell
+1. [Parse Tree](http://interactivepython.org/runestone/static/pythonds/Trees/ParseTree.html){:target="\_blank"}, Interactive Python
+2. [Grammars, Parsing, Tree Traversals](http://www.cs.cornell.edu/courses/cs2110/2014fa/L21-ParsingTrees/cs2110fa14Parsing.pdf){:target="\_blank"}, Professors David Gries & Doug James
+3. [Let’s Build A Simple Interpreter, Part 7](https://ruslanspivak.com/lsbasi-part7/){:target="\_blank"}, Ruslan Spivak
+4. [A Guide to Parsing: Algorithms and Terminology](https://tomassetti.me/guide-parsing-algorithms-terminology/#parser){:target="\_blank"}, Gabriele Tomassetti
+5. [Lecture 2: Abstract and Concrete Syntax](http://www.cse.chalmers.se/edu/year/2011/course/TIN321/lectures/proglang-02.html){:target="\_blank"}, Aarne Ranta
+6. [Compilers and Interpreters](http://flint.cs.yale.edu/cs421/lectureNotes/c04.pdf){:target="\_blank"}, Professor Zhong Shao
+7. [Compiler Basics](http://www.cs.man.ac.uk/~pjj/farrell/comp4.html){:target="\_blank"} — The Parser, James Alan Farrell
 
 [origin]: https://medium.com/basecs/grammatically-rooting-oneself-with-parse-trees-ec9daeda7dad
 [author]: https://medium.com/@vaidehijoshi
