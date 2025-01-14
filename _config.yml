@@ -28,7 +28,6 @@ url: 'https://chanlee.github.io' # the base hostname & protocol for your site, e
 twitter_username: chanlee
 github_username: chanlee
 instagram_username: wonchanlee
-disqus.shortname: chanlee2015
 
 # Build settings
 theme: minima

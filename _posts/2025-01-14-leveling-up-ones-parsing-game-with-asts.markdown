@@ -2,7 +2,7 @@
 layout: post
 title: 'AST로 구문 분석 게임 레벨 업하기!'
 date: 2025-01-14 19:19:00 +0900
-categories: ast cs compilers theory
+categories: ast basecs compilers theory
 ---
 
 원문 : [Leveling Up One’s Parsing Game With ASTs][origin] - [Vaidehi Joshi][author]
