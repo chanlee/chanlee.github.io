@@ -5,7 +5,7 @@ date: 2025-01-14 10:10:00 +0900
 categories: ast basecs compilers theory
 ---
 
-원문 : [Grammatically Rooting Oneself With Parse Trees][origin] - [Vaidehi Joshi][author]
+원문 : [Grammatically Rooting Oneself With Parse Trees][origin]{:target="\_blank"} - [Vaidehi Joshi][author]{:target="\_blank"}
 
 ![Grammatically rooting oneself with parse trees!](https://miro.medium.com/v2/resize:fit:1400/format:webp/1*yKjaulmzLsRxN4JBvy5Q2w.jpeg)
 

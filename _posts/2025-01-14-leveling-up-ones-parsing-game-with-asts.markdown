@@ -5,7 +5,7 @@ date: 2025-01-14 19:19:00 +0900
 categories: ast basecs compilers theory
 ---
 
-원문 : [Leveling Up One’s Parsing Game With ASTs][origin] - [Vaidehi Joshi][author]
+원문 : [Leveling Up One’s Parsing Game With ASTs][origin]{:target="\_blank"} - [Vaidehi Joshi][author]{:target="\_blank"}
 
 ![Leveling up one’s parsing game with ASTs!](https://miro.medium.com/v2/resize:fit:1400/format:webp/1*kxqNtKNa_YzMpz1aahvJUQ.jpeg)
 
