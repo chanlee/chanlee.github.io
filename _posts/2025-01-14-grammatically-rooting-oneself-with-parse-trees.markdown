@@ -2,7 +2,7 @@
 layout: post
 title: '구문 분석 트리로 문법적으로 뿌리를 내리기'
 date: 2025-01-14 10:10:00 +0900
-categories: ast basecs compilers theory
+categories: ast basecs compilers theory parser
 ---
 
 원문 : [Grammatically Rooting Oneself With Parse Trees][origin]{:target="\_blank"} - [Vaidehi Joshi][author]{:target="\_blank"}
