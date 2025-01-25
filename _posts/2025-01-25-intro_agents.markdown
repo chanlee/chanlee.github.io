@@ -1,12 +1,15 @@
 ---
 layout: post
-title: '에이전트 소개'
+title: '에이전트 소개와 리액트(ReAct)'
 date: 2025-01-25 01:20:00 +0900
 categories: ai agents smolagents huggingface
 published: true
 ---
 
-원문 : [Introduction to Agents][origin]{:target="\_blank"}
+원문 :
+
+-   [Introduction to Agents][origin]{:target="\_blank"}
+-   [How do multi-step agents work?](https://huggingface.co/docs/smolagents/conceptual_guides/react){:target="\_blank"}
 
 ## 🤔 에이전트란 무엇인가요?
 
@@ -103,5 +106,48 @@ JSON과 같은 스니펫 대신 코드로 액션을 작성하면 다음과 같�
 -   객체 관리: JSON에서 generate_image와 같은 액션의 출력을 어떻게 저장할 수 있을까요?
 -   일반성: 코드는 컴퓨터가 수행할 수 있는 모든 작업을 간단히 표현할 수 있도록 설계되어 있습니다.
 -   LLM 학습 데이터에서의 표현: LLM의 학습 데이터에 이미 많은 양질의 코드 액션이 포함되어 있어 이미 이를 위한 학습이 완료되어 있습니다!
+
+## 다단계 에이전트(multi-step agent)는 어떻게 작동하는가?
+
+ReAct 프레임워크([Yao et al., 2022](https://huggingface.co/papers/2210.03629){:target="\_blank"})는 현재 에이전트를 구축하는 주요 접근 방식입니다.
+
+이 이름은 "Reason(추론)"과 "Act(행동)"이라는 두 단어의 조합에서 유래했습니다. 실제로 이 아키텍처를 따르는 에이전트들은 필요한 만큼의 단계를 거쳐 작업을 해결하는데, 각 단계는 추론 단계와 주어진 작업 해결에 더 가까워지기 위한 도구 호출을 수행하는 행동 단계로 구성됩니다.
+
+smolagents의 모든 에이전트는 ReAct 프레임워크의 추상화인 단일 MultiStepAgent 클래스를 기반으로 합니다.
+
+기본적으로 이 클래스는 다음과 같이 기존 변수와 지식이 에이전트 로그에 통합되는 단계들을 순환적으로 수행합니다:
+
+초기화: 시스템 프롬프트는 SystemPromptStep에 저장되고, 사용자 쿼리는 TaskStep에 기록됩니다.
+
+While 루프(ReAct 루프):
+
+-   agent.write_inner_memory_from_logs()를 사용하여 에이전트 로그를 LLM이 읽을 수 있는 채팅 메시지 목록으로 작성합니다.
+-   이 메시지들을 Model 객체에 전송하여 완료된 결과를 얻습니다. 완료된 결과를 구문 분석하여 액션을 얻습니다(ToolCallingAgent의 경우 JSON blob, CodeAgent의 경우 코드 스니펫).
+-   액션을 실행하고 결과를 메모리에 기록합니다(ActionStep).
+-   각 단계가 끝날 때마다 agent.step_callbacks에 정의된 모든 콜백 함수를 실행합니다.
+
+선택적으로, 계획이 활성화되면 계획을 주기적으로 수정하여 PlanningStep에 저장할 수 있습니다. 여기에는 현재 작업에 대한 사실들을 메모리에 제공하는 것이 포함됩니다.
+
+CodeAgent의 경우, 아래 그림과 같습니다.
+
+![How CodeAgent.run() works](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/smolagents/codeagent_docs.png)
+
+다음은 이것이 작동하는 과정을 비디오로 보여주는 것입니다:
+
+![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/transformers/Agent_ManimCE.gif)
+
+<br/>
+
+![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/open-source-llms-as-agents/ReAct.png)
+
+우리는 두 가지 버전의 에이전트를 구현합니다:
+
+-   [CodeAgent](https://huggingface.co/docs/smolagents/v1.5.0/en/reference/agents#smolagents.CodeAgent){:target="\_blank"}는 선호되는 유형의 에이전트로, 도구 호출을 코드 블록 형태로 생성합니다.
+
+-   [ToolCallingAgent](https://huggingface.co/docs/smolagents/v1.5.0/en/reference/agents#smolagents.ToolCallingAgent){:target="\_blank"}는 일반적인 에이전트 프레임워크처럼 도구 호출을 JSON 형태로 출력합니다. 이 옵션을 포함한 이유는 단계당 하나의 도구 호출만으로도 충분한 특정 상황에서 유용하기 때문입니다. 예를 들어, 웹 브라우징의 경우 페이지의 변화를 확인하기 위해 각 동작 후에 대기해야 합니다.
+
+> 에이전트를 한 번에 실행할 수 있는 옵션도 제공합니다. 에이전트를 실행할 때 single_step=True를 전달하기만 하면 됩니다(예: agent.run(your_task, single_step=True)).
+
+> 다단계 에이전트에 대해 자세히 알아보려면 [LangChain 에이전트로서의 오픈소스 LLM](https://huggingface.co/blog/open-source-llms-as-agents){:target="\_blank"}에 관한 블로그 게시물을 읽어보세요.
 
 [origin]: https://huggingface.co/docs/smolagents/conceptual_guides/intro_agents
