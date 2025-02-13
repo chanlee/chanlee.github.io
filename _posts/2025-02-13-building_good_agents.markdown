@@ -251,4 +251,31 @@ agent = CodeAgent(
 
 이것은 [ToolCallingAgent](https://huggingface.co/docs/smolagents/v1.8.1/en/reference/agents#smolagents.ToolCallingAgent){:target="\_blank"} 와도 잘 작동합니다.
 
+#### 4. 추가사항 (Extra planning)
+
+우리는 에이전트가 일반적인 행동 단계들 사이에 정기적으로 실행할 수 있는 보충 계획 단계를 위한 모델을 제공합니다. 이 단계에서는 도구 호출이 없으며, LLM은 단순히 자신이 알고 있는 사실들의 목록을 업데이트하고 이러한 사실들을 바탕으로 다음에 취해야 할 단계들에 대해 성찰하도록 요청받습니다.
+
+```python
+from smolagents import load_tool, CodeAgent, HfApiModel, DuckDuckGoSearchTool
+from dotenv import load_dotenv
+
+load_dotenv()
+
+# Import tool from Hub
+image_generation_tool = load_tool("m-ric/text-to-image", trust_remote_code=True)
+
+search_tool = DuckDuckGoSearchTool()
+
+agent = CodeAgent(
+    tools=[search_tool, image_generation_tool],
+    model=HfApiModel("Qwen/Qwen2.5-72B-Instruct"),
+    planning_interval=3 # This is where you activate planning!
+)
+
+# Run it!
+result = agent.run(
+    "How long would a cheetah at full speed take to run the length of Pont Alexandre III?",
+)
+```
+
 [origin]: https://huggingface.co/docs/smolagents/tutorials/building_good_agents
