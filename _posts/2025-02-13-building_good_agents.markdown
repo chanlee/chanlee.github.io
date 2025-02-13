@@ -164,6 +164,91 @@ Final answer:
 
 그러므로 에이전트를 디버깅하는 첫 번째 단계는 "더 강력한 LLM을 사용하는 것"입니다. Qwen2/5-72B-Instruct와 같은 다른 모델들을 사용했다면 이러한 실수는 발생하지 않았을 것입니다.
 
-[origin]: https://huggingface.co/docs/smolagents/tutorials/building_good_agents
+더 강력한 모델을 사용하면 LLM이 더 많은 정보를 기억하고, 더 많은 정보를 기억하면 더 많은 정보를 출력할 수 있습니다. 이는 에이전트가 더 많은 정보를 활용할 수 있게 해줍니다.
 
 #### 2. 더 많은 안내/정보를 제공해 주세요
+
+덜 강력한 모델도 더 효과적으로 안내한다면 충분히 활용할 수 있습니다.
+
+모델의 입장이 되어 생각해보세요. 만약 여러분이 모델이 되어 작업을 수행한다면, (시스템 프롬프트 + 작업 설명 + 도구 설명에서) 제공받은 정보만으로도 충분할까요?
+
+추가 설명이 필요하진 않을까요?
+
+추가 정보를 제공하고자 할 때, 시스템 프롬프트를 바로 수정하는 것은 권장하지 않습니다. 기본 시스템 프롬프트에는 많은 조정 사항이 포함되어 있어서, 프롬프트를 완벽히 이해하지 못한다면 건드리지 않는 것이 좋습니다. 대신 LLM 엔진을 안내하는 더 나은 방법은 다음과 같습니다:
+
+-   해결해야 할 작업에 관한 것이라면: 모든 세부 사항을 작업 설명에 추가하세요. 작업 설명이 수백 페이지가 되어도 괜찮습니다.
+-   도구 사용 방법에 관한 것이라면: 도구의 설명(description) 속성을 활용하세요.
+
+#### 3. 시스템 프롬프트 변경 (일반적으로 권장되지 않음)
+
+위의 설명이 충분하지 않다면, 시스템 프롬프트를 변경할 수 있습니다.
+
+어떻게 작동하는지 살펴보겠습니다. 예를 들어, CodeAgent의 기본 시스템 프롬프트를 확인해보겠습니다 (아래 버전은 제로샷 예제를 생략하여 축약되었습니다).
+
+```python
+print(agent.prompt_templates["system_prompt"])
+```
+
+결과는 다음과 같습니다.
+
+````
+You are an expert assistant who can solve any task using code blobs. You will be given a task to solve as best you can.
+To do so, you have been given access to a list of tools: these tools are basically Python functions which you can call with code.
+To solve the task, you must plan forward to proceed in a series of steps, in a cycle of 'Thought:', 'Code:', and 'Observation:' sequences.
+
+At each step, in the 'Thought:' sequence, you should first explain your reasoning towards solving the task and the tools that you want to use.
+Then in the 'Code:' sequence, you should write the code in simple Python. The code sequence must end with '<end_code>' sequence.
+During each intermediate step, you can use 'print()' to save whatever important information you will then need.
+These print outputs will then appear in the 'Observation:' field, which will be available as input for the next step.
+In the end you have to return a final answer using the `final_answer` tool.
+
+Here are a few examples using notional tools:
+---
+{examples}
+
+Above example were using notional tools that might not exist for you. On top of performing computations in the Python code snippets that you create, you only have access to these tools:
+
+{{tool_descriptions}}
+
+{{managed_agents_descriptions}}
+
+Here are the rules you should always follow to solve your task:
+1. Always provide a 'Thought:' sequence, and a 'Code:\n```py' sequence ending with '```<end_code>' sequence, else you will fail.
+2. Use only variables that you have defined!
+3. Always use the right arguments for the tools. DO NOT pass the arguments as a dict as in 'answer = wiki({'query': "What is the place where James Bond lives?"})', but use the arguments directly as in 'answer = wiki(query="What is the place where James Bond lives?")'.
+4. Take care to not chain too many sequential tool calls in the same code block, especially when the output format is unpredictable. For instance, a call to search has an unpredictable return format, so do not have another tool call that depends on its output in the same block: rather output results with print() to use them in the next block.
+5. Call a tool only when needed, and never re-do a tool call that you previously did with the exact same parameters.
+6. Don't name any new variable with the same name as a tool: for instance don't name a variable 'final_answer'.
+7. Never create any notional variables in our code, as having these in your logs might derail you from the true variables.
+8. You can use imports in your code, but only from the following list of modules: {{authorized_imports}}
+9. The state persists between code executions: so if in one step you've created variables or imported modules, these will all persist.
+10. Don't give up! You're in charge of solving the task, not providing directions to solve it.
+
+Now Begin! If you solve the task correctly, you will receive a reward of $1,000,000.
+````
+
+보시다시피 "{{tool_descriptions}}"와 같은 Placeholder가 있습니다. 이러한 Placeholder는 에이전트 초기화 시 도구나 관리되는 에이전트들의 자동 생성된 설명을 삽입하는 데 사용됩니다.
+
+system_prompt 매개변수에 사용자 지정 프롬프트를 전달하여 이 시스템 프롬프트 템플릿을 덮어쓸 수 있습니다. 단, 새로운 시스템 프롬프트에는 다음과 같은 Placeholder들이 반드시 포함되어야 합니다:
+
+"{{tool_descriptions}}" : 도구 설명을 삽입하기 위한 Placeholder
+"{{managed_agents_description}}" : 관리되는 에이전트가 있는 경우 해당 설명을 삽입하기 위한 Placeholder
+CodeAgent의 경우에만: "{{authorized_imports}}" : 승인된 임포트 목록을 삽입하기 위한 Placeholder
+
+이후 다음과 같이 시스템 프롬프트를 변경할 수 있습니다:
+
+```python
+from smolagents.prompts import CODE_SYSTEM_PROMPT
+
+modified_system_prompt = CODE_SYSTEM_PROMPT + "\nHere you go!" # Change the system prompt here
+
+agent = CodeAgent(
+    tools=[],
+    model=HfApiModel(),
+    system_prompt=modified_system_prompt
+)
+```
+
+이것은 [ToolCallingAgent](https://huggingface.co/docs/smolagents/v1.8.1/en/reference/agents#smolagents.ToolCallingAgent){:target="\_blank"} 와도 잘 작동합니다.
+
+[origin]: https://huggingface.co/docs/smolagents/tutorials/building_good_agents
