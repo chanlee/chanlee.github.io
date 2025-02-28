@@ -263,7 +263,7 @@ AST는 정의상 구문 분석 트리의 압축 버전이며 구문 세부 사�
 
 ## 참고자료
 
-AST에는 다양한 언어로 된 수많은 자료가 있습니다. 특히 더 많은 것을 배우고 싶다면 어디서부터 시작해야 할지 알기 어려울 수 있습니다. 아래는 너무 어렵지 않으면서도 훨씬 더 자세히 설명하는 초보자 친화적인 몇 가지 리소스입니다. Happy asbtracting!
+AST에는 다양한 언어로 된 수많은 자료가 있습니다. 특히 더 많은 것을 배우고 싶다면 어디서부터 시작해야 할지 알기 어려울 수 있습니다. 아래는 너무 어렵지 않으면서도 훨씬 더 자세히 설명하는 초보자 친화적인 몇 가지 리소스입니다. Happy abstracting!
 
 1. [The AST vs the Parse Tree](http://pages.cs.wisc.edu/~fischer/cs536.s06/course.hold/html/NOTES/4.SYNTAX-DIRECTED-TRANSLATION.html#astVsParse){:target="\_blank"}, Professor Charles N. Fischer
 2. [What’s the difference between parse trees and abstract syntax trees?](https://stackoverflow.com/questions/5967888/whats-the-difference-between-parse-trees-and-abstract-syntax-trees){:target="\_blank"}, StackOverflow
