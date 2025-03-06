@@ -2,7 +2,7 @@
 layout: post
 title: 'Elixir Start 01: Pattern Matching'
 date: 2025-03-06 20:19:00 +0900
-categories: elixir fp
+categories: elixir erlang fp
 ---
 
 ## F = ma
@@ -84,7 +84,7 @@ iex> [a, 2, b] = list
 
 그외, "\_"(underscore), "^"(pin operator) 와 같은 operator 도 있다.
 
-자세한건 elixir school 이나 elixir 공식 사이트의 문서 페이지를 참고하자.
+자세한건 [elixir school](https://elixirschool.com/ko/lessons/basics/basics){:target="\_blank"} 이나 elixir 공식 사이트의 [문서](https://hexdocs.pm/elixir/introduction.html){:target="\_blank"} 페이지를 참고하자.
 
 중요한것은 "="등호를 바라보는 시각의 전환
 
