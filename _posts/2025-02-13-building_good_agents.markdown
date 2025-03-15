@@ -220,7 +220,7 @@ Here are the rules you should always follow to solve your task:
 5. Call a tool only when needed, and never re-do a tool call that you previously did with the exact same parameters.
 6. Don't name any new variable with the same name as a tool: for instance don't name a variable 'final_answer'.
 7. Never create any notional variables in our code, as having these in your logs might derail you from the true variables.
-8. You can use imports in your code, but only from the following list of modules: {{authorized_imports}}
+8. You can use imports in your code, but only from the following list of modules: {% raw %}{{authorized_imports}}{% endraw %}
 9. The state persists between code executions: so if in one step you've created variables or imported modules, these will all persist.
 10. Don't give up! You're in charge of solving the task, not providing directions to solve it.
 
