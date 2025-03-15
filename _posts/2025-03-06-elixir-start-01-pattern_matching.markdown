@@ -3,6 +3,7 @@ layout: post
 title: 'Elixir Start 01: Pattern Matching'
 date: 2025-03-06 20:19:00 +0900
 categories: elixir erlang fp
+published: false
 ---
 
 ## F = ma
