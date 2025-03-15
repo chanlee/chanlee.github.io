@@ -207,11 +207,11 @@ Here are a few examples using notional tools:
 {examples}
 
 Above example were using notional tools that might not exist for you. On top of performing computations in the Python code snippets that you create, you only have access to these tools:
-
+{% raw %}
 {{tool_descriptions}}
 
 {{managed_agents_descriptions}}
-
+{% endraw %}
 Here are the rules you should always follow to solve your task:
 1. Always provide a 'Thought:' sequence, and a 'Code:\n```py' sequence ending with '```<end_code>' sequence, else you will fail.
 2. Use only variables that you have defined!
